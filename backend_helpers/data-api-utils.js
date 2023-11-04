@@ -1,6 +1,6 @@
 export const getAllItems = async () => {
   const response = await fetch(
-    "https://repliq-e-store-default-rtdb.firebaseio.com/items.json"
+    "https://ollyo-gallery-app-default-rtdb.firebaseio.com/items.json"
   );
   const data = await response.json();
   const allItems = [];

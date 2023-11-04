@@ -30,7 +30,7 @@ export const ImageContextProvider = (props) => {
   }, []);
 
   const addSelectedItemHandler = (selectedItems) => {
-    setSelectedItems((prevData) => [...prevData, dataToAdd]);
+    setSelectedItems((prevData) => [...prevData, selectedItems]);
   };
 
   const removeSelectedItemHandler = (itemToDeselect) => {

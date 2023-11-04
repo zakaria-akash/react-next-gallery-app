@@ -4,9 +4,11 @@ import Head from "next/head";
 import ImageContext from "@/store/image-context";
 import { useContext } from "react";
 
+import { CardListItems } from "@/components/item_card_list/item-card-list";
+
 const ShowAllPhotos = () => {
   const ImageCtx = useContext(ImageContext);
-  const allUsers = ImageCtx.imageItems;
+  const allItems = ImageCtx.imageItems;
 
   let headTagForThisPage = (
     <Head>
@@ -25,6 +27,8 @@ const ShowAllPhotos = () => {
           </div>
         </div>
       </div>
+
+      <CardListItems items={allItems} />
     </Fragment>
   );
 };
