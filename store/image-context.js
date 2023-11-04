@@ -5,6 +5,7 @@ import { getAllItems } from "@/backend_helpers/data-api-utils";
 
 const ImageContext = createContext({
   imageItems: null,
+  currentFeaturedItem: (newFeaturedItem) => { },
   itemsToDelete: null,
   addSelectedItem: (selectedItems) => { },
   removeSelectedItem: (itemToDeselect) => { },
@@ -28,6 +29,17 @@ export const ImageContextProvider = (props) => {
 
     fetchData();
   }, []);
+
+  const makeItemAsFeaturedItemHandler = (newFeaturedItem) => {
+    const updatedImageItems = activeImageItems.map((item) => {
+      if (item.id === newFeaturedItem.id) {
+        return { ...item, featured: true };
+      } else {
+        return { ...item, featured: false };
+      }
+    });
+    setActiveImageItems(updatedImageItems);
+  };
 
   const addSelectedItemHandler = (selectedItems) => {
     setSelectedItems((prevData) => [...prevData, selectedItems]);
@@ -56,6 +68,7 @@ export const ImageContextProvider = (props) => {
 
   const context = {
     imageItems: activeImageItems,
+    currentFeaturedItem: makeItemAsFeaturedItemHandler,
     itemsToDelete: selectedItems,
     addSelectedItem: addSelectedItemHandler,
     removeSelectedItem: removeSelectedItemHandler,

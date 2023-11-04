@@ -14,6 +14,8 @@ export const CardItem = (props) => {
   const [deleteModalStatus, setDeleteModalStatus] = useState(false);
 
   const AddFeatureItemHandler = () => {
+    ImageCtx.currentFeaturedItem(item);
+
     setAddFeatureItemModalStatus(false);
   };
 
@@ -25,8 +27,6 @@ export const CardItem = (props) => {
 
   const CheckedStatusHandler = (e) => {
     if (e.target.checked) {
-      // Call your function here
-      // Replace the following log statement with your desired function call
       console.log("Item is checked: " + item.Name);
       ImageCtx.addSelectedItem(item)
     } else {
@@ -79,6 +79,11 @@ export const CardItem = (props) => {
           setAddFeatureItemModalStatus(false);
         }}
       >
+        <span className="w-100 d-flex justify-content-center align-items-center" style={{ height: "5rem" }}>
+          <StarTwoTone className="WarningTwoTone mx-2" />
+          <h5 className="mt-2">Add this image as the featured image!</h5>
+          <StarTwoTone className="WarningTwoTone mx-2" />
+        </span>
       </Modal>
       <Modal
         open={deleteModalStatus}
