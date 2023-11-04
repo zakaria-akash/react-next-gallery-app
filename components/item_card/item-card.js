@@ -1,5 +1,5 @@
 import { Button, Modal, Form, Input } from "antd";
-import { DeleteTwoTone, StarTwoTone, WarningFilled } from "@ant-design/icons";
+import { DeleteTwoTone, StarTwoTone, WarningFilled, StarFilled } from "@ant-design/icons";
 import React, { useState } from "react";
 import classes from "./item-card.module.css";
 import Image from "next/legacy/image";
@@ -37,7 +37,7 @@ export const CardItem = (props) => {
 
   return (
     <div
-      className={`card border-0 col-sm-6 col-md-3 bg-transparent text-info ${classes.cardContainer}`}
+      className={`card border-0 col-sm-6 col-md-3 bg-dark text-info m-2 ${classes.cardContainer}`}
     >
       <Image
         alt={item.Name}
@@ -51,27 +51,37 @@ export const CardItem = (props) => {
         {item.Name}
       </p>
       <hr className="mt-0" />
-      <Button
-        onClick={() => {
-          setAddFeatureItemModalStatus(true);
-        }}
-        style={{ margin: 1, padding: 1, width: "100%" }}
-      >
-        <StarTwoTone style={{ fontSize: "100%" }} />
-      </Button>
-      <Button
-        onClick={() => {
-          setDeleteModalStatus(true);
-        }}
-        style={{ margin: 1, padding: 1, width: "100%" }}
-      >
-        <DeleteTwoTone style={{ fontSize: "100%" }} />
-      </Button>
-      <Button
-        style={{ margin: 1, padding: 1, width: "100%" }}
-      >
-        <input style={{ transform: "scale(1)", margin: "auto" }} type="checkbox" id="selectToDelete" name="selectToDelete" value="check" onChange={CheckedStatusHandler} />
-      </Button>
+      <span className="d-flex justify-content-around align-items-center">
+        <Button
+          onClick={() => {
+            setAddFeatureItemModalStatus(true);
+          }}
+          className="d-flex justify-content-center align-items-center"
+          style={{ margin: 1, padding: 1, width: "20%" }}
+        >
+          {item.featured ? (
+            <StarFilled style={{ fontSize: "150%", color: "#3B71CA" }} />
+          ) : (
+            <StarTwoTone style={{ fontSize: "150%" }} />
+          )}
+
+        </Button>
+        <Button
+          onClick={() => {
+            setDeleteModalStatus(true);
+          }}
+          className="d-flex justify-content-center align-items-center"
+          style={{ margin: 1, padding: 1, width: "20%" }}
+        >
+          <DeleteTwoTone style={{ fontSize: "150%" }} />
+        </Button>
+        <Button
+          className="d-flex justify-content-center align-items-center"
+          style={{ margin: 1, padding: 1, width: "20%" }}
+        >
+          <input style={{ transform: "scale(1.5)", margin: "auto" }} type="checkbox" id="selectToDelete" name="selectToDelete" value="check" onChange={CheckedStatusHandler} />
+        </Button>
+      </span>
       <Modal
         open={addFeatureItemModalStatus}
         onOk={AddFeatureItemHandler}
@@ -81,7 +91,7 @@ export const CardItem = (props) => {
       >
         <span className="w-100 d-flex justify-content-center align-items-center" style={{ height: "5rem" }}>
           <StarTwoTone className="WarningTwoTone mx-2" />
-          <h5 className="mt-2">Add this image as the featured image!</h5>
+          <h5 className="mt-2">Make this image as the featured image!</h5>
           <StarTwoTone className="WarningTwoTone mx-2" />
         </span>
       </Modal>

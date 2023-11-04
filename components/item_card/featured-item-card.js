@@ -7,7 +7,7 @@ export const CardItemFeatured = (props) => {
   const { item } = props;
   return (
     <div
-      className={`card border-0 col-sm-6 col-md-3 bg-transparent text-info ${classes.cardContainer}`}
+      className={`card border-0 col-sm-6 col-md-3 ms-1 mt-1 text-info bg-transparent ${classes.cardContainer}`}
     >
       <Image
         alt={item.Name}
