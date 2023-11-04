@@ -11,11 +11,16 @@ const ImageContext = createContext({
   removeSelectedItem: (itemToDeselect) => { },
   removeSingleImage: (imageToRemove) => { },
   removeMultipleImages: (itemsToRemove) => { },
+  notificationMessage: null,
+  showNotification: (notificationData) => { },
+  hideNotification: () => { },
+
 });
 
 export const ImageContextProvider = (props) => {
   const [activeImageItems, setActiveImageItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [activeNotificationMessage, setActiveNotificationMessage] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +34,19 @@ export const ImageContextProvider = (props) => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    activeNotificationMessage
+      ? (() => {
+        const timer = setTimeout(() => {
+          setActiveNotificationMessage(null);
+        }, 3000);
+        return () => {
+          clearTimeout(timer);
+        };
+      })()
+      : null;
+  }, [activeNotificationMessage]);
 
   const makeItemAsFeaturedItemHandler = (newFeaturedItem) => {
     const updatedImageItems = activeImageItems.map((item) => {
@@ -66,6 +84,14 @@ export const ImageContextProvider = (props) => {
     });
   };
 
+  const showNotificationHandller = (notificationData) => {
+    setActiveNotificationMessage(notificationData);
+  };
+
+  const hideNotificationHandler = () => {
+    setActiveNotificationMessage(null);
+  };
+
   const context = {
     imageItems: activeImageItems,
     currentFeaturedItem: makeItemAsFeaturedItemHandler,
@@ -74,6 +100,9 @@ export const ImageContextProvider = (props) => {
     removeSelectedItem: removeSelectedItemHandler,
     removeSingleImage: removeSingleImageHandler,
     removeMultipleImages: removeMultipleImagesHandler,
+    notificationMessage: activeNotificationMessage,
+    showNotification: showNotificationHandller,
+    hideNotification: hideNotificationHandler,
   };
   return (
     <ImageContext.Provider value={context}>

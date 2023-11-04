@@ -4,16 +4,23 @@ import React, { Fragment, useContext, useState } from "react";
 import Link from "next/link";
 import { WarningFilled } from "@ant-design/icons";
 import { Button, Modal } from "antd";
+import Notification from "../show-notification/show-notification";
 
 import ImageContext from "@/store/image-context";
 
 const MainHeader = () => {
   const ImageCtx = useContext(ImageContext);
   const [deleteWarningModalStatus, setDeleteWarningModalStatus] = useState(false);
+  const activeNotification = ImageCtx.notificationMessage;
 
   const handleDeleteAllSelectedImages = () => {
-    console.log("handleDeleteAllSelectedImages is invoked!");
+    const notificationData = {
+      title: "deleting...",
+      message: `Multiple selected items have been deleted from the gallery!`,
+      status: "removed"
+    };
     ImageCtx.removeMultipleImages(ImageCtx.itemsToDelete);
+    ImageCtx.showNotification(notificationData);
 
     setDeleteWarningModalStatus(false);
   }
@@ -54,7 +61,13 @@ const MainHeader = () => {
           <WarningFilled className="WarningTwoTone mx-2" />
         </span>
       </Modal>
-      {/* end cart modal */}
+      {activeNotification && (
+        <Notification
+          title={activeNotification.title}
+          message={activeNotification.message}
+          status={activeNotification.status}
+        />
+      )}
     </Fragment>
   );
 };
