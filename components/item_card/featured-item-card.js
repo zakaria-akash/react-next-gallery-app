@@ -17,8 +17,8 @@ export const CardItemFeatured = (props) => {
         layout="fixed"
         style={{ width: "300px", height: "300px" }}
       />
-      <p className="fw-bold fs-6 mb-0">
-        {item.Name}
+      <p className="fw-bold text-center fs-6 m-0">
+        Featured Image: {item.Name}
       </p>
       <hr className="mt-0" />
     </div>
